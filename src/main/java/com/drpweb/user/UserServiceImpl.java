@@ -12,16 +12,32 @@ import java.util.List;
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
+
+
+
     @Autowired
-    private UserRepository userRepository;
+    private UserDao userDao;
+
+    public UserServiceImpl() {
+    }
+
+    public UserServiceImpl(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
 
     @Override
     public List<User> findAll() {
-        return userRepository.findAll();
+        return userDao.findAll();
     }
 
     @Override
     public User findByUserName(String username) {
-        return userRepository.findByUsername(username);
+        return userDao.findByUsername(username);
+    }
+
+    @Override
+    public User create(User user) {
+        return userDao.create(user);
     }
 }

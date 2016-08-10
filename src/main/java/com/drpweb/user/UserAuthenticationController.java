@@ -29,6 +29,14 @@ public class UserAuthenticationController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    public UserAuthenticationController() {
+    }
+
+    public UserAuthenticationController(UserDetailsService userDetailsService, AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
+        this.userDetailsService = userDetailsService;
+    }
+
     /**
      * Retrieves the currently logged in user.
      *

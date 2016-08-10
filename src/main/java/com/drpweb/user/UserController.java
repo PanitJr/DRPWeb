@@ -1,10 +1,7 @@
 package com.drpweb.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +18,10 @@ public class UserController {
     @RequestMapping(value = "/all",method = RequestMethod.GET)
     public List<User> list(){
         return userService.findAll();
+    }
+
+    @RequestMapping(value = "",method = RequestMethod.POST)
+    public User create(@RequestBody User user){
+        return userService.create(user);
     }
 }
