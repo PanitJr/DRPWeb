@@ -23,4 +23,9 @@ public class UserController {
     public User create(@RequestBody User user){
         return userService.create(user);
     }
+
+    @RequestMapping(value = "/getUser",method = RequestMethod.GET)
+    public  User getByUsername(@RequestParam("name")String name){
+        return userService.findByUserName(name);
+    }
 }

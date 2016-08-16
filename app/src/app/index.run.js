@@ -8,7 +8,7 @@
 
   /** @ngInject */
   function runSecurity($rootScope,$location,$cookies,securityService) {
-    var originalPath = $location.path();
+    var originalPath = $location.path('/');
     var authToken = $cookies.get('authToken');
     //$log.debug('token',authToken);
     if(authToken){
@@ -35,9 +35,9 @@
       delete $rootScope.user;
       delete $rootScope.authToken;
       $cookies.remove('authToken');
-      $location.path("/")
+      $location.path('/')
     };
-    $location.path("/");
+    $location.path('/');
   }
 
   /** @ngInject */

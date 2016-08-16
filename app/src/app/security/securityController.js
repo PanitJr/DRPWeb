@@ -58,9 +58,10 @@
     function ModalLoginController( $uibModal, $log,$rootScope,$location,$cookies,securityService) {
 
     var vm = this;
-
     vm.animationsEnabled = true;
-      vm.rememberMe = false;
+    vm.rememberMe = false;
+    vm.lofinFail =false;
+    vm.loginMessage = "";
     vm.open = function (size) {
 
       var modalInstance = $uibModal.open({
@@ -68,7 +69,15 @@
         templateUrl: 'sign_in.html',
         controller: 'ModalLoginInstanceController',
         controllerAs: 'vm',
-        size: size
+        size: size,
+        resolve: {
+          lofinFail: function () {
+            return vm.lofinFail;
+          },
+          loginMessage: function () {
+            return vm.loginMessage;
+          }
+        }
       });
 
       modalInstance.result.then(function (data) {
@@ -83,12 +92,14 @@
             }
             securityService.get(function (user) {
               $rootScope.user = user;
-              $location.path("/")
+              $location.path('/')
             });
             //delete $rootScope.error;
           },
           function(){
-              $rootScope.error =" user name or passoword is not correct";
+            vm.lofinFail = true;
+              vm.loginMessage =" user name or password is not correct";
+            vm.open();
           });
       }, function () {
         $log.info('Modal dismissed at: ' + new Date());
@@ -104,15 +115,19 @@
 // Please note that $uibModalInstance represents a modal window (instance) dependency.
 // It is not the same as the $uibModal service used above.
 
-    function ModalLoginInstanceController($uibModalInstance) {
+    function ModalLoginInstanceController($uibModalInstance,$location,lofinFail,loginMessage) {
       var vm = this;
+      vm.lofinFaild = lofinFail;
+      vm.loginMessage = loginMessage;
       vm.ok = function () {
 
         $uibModalInstance.close({username:vm.username,password:vm.password,rememberMe:vm.rememberMe});
+
       };
 
       vm.cancel = function () {
       $uibModalInstance.dismiss('cancel');
+        $location.path('/')
     };
   }
 

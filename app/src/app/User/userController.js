@@ -4,7 +4,8 @@
 (function () {
   'use strict'
   angular.module('app').controller('ModalRegisterController',ModalRegisterController)
-    .controller('ModalRegisterInstanceController',ModalRegisterInstanceController);
+    .controller('ModalRegisterInstanceController',ModalRegisterInstanceController)
+    .controller('MyAccountController',MyAccountController);
   /**ngInject*/
   function ModalRegisterController(userService,$uibModal,$log,$location,$rootScope) {
     var vm = this;
@@ -22,7 +23,7 @@
 
       modalInstance.result.then(function (data) {
         userService.save(data);
-        $location.path("/")
+        $location.path('/');
         $rootScope.signUpSuccess = true;
       }, function () {
         $log.info('Modal dismissed at: ' + new Date());
@@ -38,7 +39,7 @@
 // Please note that $uibModalInstance represents a modal window (instance) dependency.
 // It is not the same as the $uibModal service used above.
 
-  function ModalRegisterInstanceController($uibModalInstance) {
+  function ModalRegisterInstanceController($uibModalInstance,$location) {
     var vm = this;
     vm.ok = function () {
 
@@ -57,7 +58,22 @@
 
     vm.cancel = function () {
       $uibModalInstance.dismiss('cancel');
+      $location.path('/')
     };
+  }
+  function MyAccountController(queryUserService,$rootScope) {
+    var vm = this;
+    vm.loadingstatus = false;
+    queryUserService.get({name: $rootScope.user.username}, function (data) {
+      vm.user = data;
+    },function () {
+      vm.loadingstatus = true;
+      vm.loadingMessage ="Cannot load user detail";
+      }
+    );
+    vm.edit = function () {
+
+    }
   }
 
 })();

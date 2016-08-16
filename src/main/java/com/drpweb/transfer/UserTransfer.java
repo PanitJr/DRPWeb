@@ -6,17 +6,17 @@ import java.util.Map;
  * Created by Asus on 7/8/2559.
  */
 public class UserTransfer {
-    private final String name;
+    private final String username;
     private final Map<String, Boolean> roles;
 
 
-    public UserTransfer(String name, Map<String, Boolean> roles) {
-        this.name = name;
+    public UserTransfer(String username, Map<String, Boolean> roles) {
+        this.username = username;
         this.roles = roles;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
     public Map<String, Boolean> getRoles() {

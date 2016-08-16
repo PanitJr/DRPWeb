@@ -11,7 +11,11 @@
         templateUrl: 'app/home/home.html',
         controller: 'mainDRPController',
         controllerAs: 'vm'
-      })
+      }).when('/myaccount',{
+      templateUrl: 'app/User/myAccount.html',
+      controller: 'MyAccountController',
+      controllerAs: 'vm'
+    })
       .otherwise({
         redirectTo: '/'
       });

@@ -5,7 +5,8 @@
   'use strict'
   angular
     .module('app')
-    .factory('userService',userService);
+    .factory('userService',userService)
+    .factory('queryUserService',queryUserService);
 
   /** @ngInject */
   function userService($resource){
@@ -14,6 +15,12 @@
         method: 'PUT' // this method issues a PUT request
       }});
 
+  }
+  /** @ngInject */
+  function queryUserService($resource){
+    return $resource('/getUser/?name=:name',
+      {get:{method:'GET',params:{name:''}}
+      });
   }
 
 })();
