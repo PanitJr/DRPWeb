@@ -3,7 +3,10 @@
  */
 (function () {
 
-  angular.module('app').controller('LoginController',LoginController);
+  angular.module('app')
+    .controller('ModalLoginController',ModalLoginController )
+    .controller('ModalLoginInstanceController',ModalLoginInstanceController );
+
   function serializeData(data) {
     //if this not an object
     if(!angular.isObject(data)){
@@ -25,30 +28,96 @@
     return(source);
   }
   /**ngInject*/
-  function LoginController($rootScope,$location,$cookies,UserService)
-  {
-    var vm = this;
-    vm.rememberMe = false;
-    vm.login = function () {
+  // function LoginController($rootScope,$location,$cookies,UserService)
+  // {
+  //
+  //   var vm = this;
+  //   vm.rememberMe = false;
+  //   vm.login = function () {
+  //
+  //     UserService.authenticate(serializeData({username:vm.username,password:vm.password}),
+  //       function (authenticationResult) {
+  //         var authToken = authenticationResult.token;
+  //         $rootScope.authToken = authToken;
+  //         if (vm.rememberMe) {
+  //           $cookies.put('authToken', authToken);
+  //         }
+  //         UserService.get(function (user) {
+  //           $rootScope.user = user;
+  //           $location.path("/")
+  //         })
+  //         //delete $rootScope.error;
+  //       },
+  //       function(error){
+  //         if (error.status == "401"){
+  //           $rootScope.error =" user name or passoword is not correct";
+  //         }
+  //       })
+  //   }
+  // }
+    function ModalLoginController( $uibModal, $log,$rootScope,$location,$cookies,securityService) {
 
-      UserService.authenticate(serializeData({username:vm.username,password:vm.password}),
-        function (authenticationResult) {
-          var authToken = authenticationResult.token;
-          $rootScope.authToken = authToken;
-          if (vm.rememberMe) {
-            $cookies.put('authToken', authToken);
-          }
-          UserService.get(function (user) {
-            $rootScope.user = user;
-            $location.path("/")
-          })
-          //delete $rootScope.error;
-        },
-        function(error){
-          if (error.status == "401"){
-            $rootScope.error =" user name or passoword is not correct";
-          }
-        })
-    }
+    var vm = this;
+
+    vm.animationsEnabled = true;
+      vm.rememberMe = false;
+    vm.open = function (size) {
+
+      var modalInstance = $uibModal.open({
+        animation: vm.animationsEnabled,
+        templateUrl: 'sign_in.html',
+        controller: 'ModalLoginInstanceController',
+        controllerAs: 'vm',
+        size: size
+      });
+
+      modalInstance.result.then(function (data) {
+
+        vm.rememberMe = data.rememberMe;
+        securityService.authenticate(serializeData({username:data.username,password:data.password}),
+          function (authenticationResult) {
+            var authToken = authenticationResult.token;
+            $rootScope.authToken = authToken;
+            if (vm.rememberMe) {
+              $log.debug('save token',authToken);
+              $cookies.put('authToken', authToken, {expires: moment().add(5,'days').toString()});
+              $log.debug('saved',$cookies.get('authToken'));
+            }
+            securityService.get(function (user) {
+              $rootScope.user = user;
+              $location.path("/")
+            });
+            //delete $rootScope.error;
+          },
+          function(error){
+            if (error.status == "401"){
+              $rootScope.error =" user name or passoword is not correct";
+            }
+          });
+      }, function () {
+        $log.info('Modal dismissed at: ' + new Date());
+      });
+    };
+
+    vm.toggleAnimation = function () {
+      vm.animationsEnabled = !vm.animationsEnabled;
+    };
+
   }
+
+// Please note that $uibModalInstance represents a modal window (instance) dependency.
+// It is not the same as the $uibModal service used above.
+
+    function ModalLoginInstanceController($uibModalInstance) {
+      var vm = this;
+      vm.ok = function () {
+
+        $uibModalInstance.close({username:vm.username,password:vm.password,rememberMe:vm.rememberMe});
+      };
+
+      vm.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
+  }
+
 })();

@@ -28,7 +28,7 @@
     vm.setDayContent = function(date) {
       // You would inject any HTML you wanted for
       // that particular date here.
-      return "<p>{{date}}</p>";
+      return "<p>date</p>";
     };
 
   }

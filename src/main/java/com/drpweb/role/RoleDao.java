@@ -11,5 +11,5 @@ public interface RoleDao {
     void delete(Role role);
     Role findOne(Long id);
     List<Role> findAll ();
-    Role findByName(String name);
+    Role findByRoleName(String RoleName);
 }

@@ -43,8 +43,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(authenticationEntryPoint)
+                //open h2
+                .and().headers().frameOptions().disable()
                 .and()
                 .addFilterBefore(authenticationTokenProcessingFilter,UsernamePasswordAuthenticationFilter.class);
+
+
 
     }
 

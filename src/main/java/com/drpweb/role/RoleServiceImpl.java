@@ -1,12 +1,14 @@
 package com.drpweb.role;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by Asus on 7/8/2559.
  */
+@Service
 public class RoleServiceImpl implements RoleService {
     @Autowired
     RoleDao roleDao;
@@ -38,6 +40,6 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role findByName(String name) {
-        return roleDao.findByName(name);
+        return roleDao.findByRoleName(name);
     }
 }

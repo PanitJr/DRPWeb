@@ -3,9 +3,9 @@
  */
 (function () {
   'use strict'
-  angular.module('app').factory('UserService',UserService)
+  angular.module('app').factory('securityService',securityService)
   /**ngInject*/
-  function UserService($resource){
+  function securityService($resource){
     return $resource('/user/:action',{},
       {authenticate:
       {

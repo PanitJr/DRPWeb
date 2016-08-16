@@ -7,7 +7,17 @@
     .run(runSecurity);
 
   /** @ngInject */
-  function runSecurity($rootScope,$location,$cookies,UserService) {
+  function runSecurity($rootScope,$location,$cookies,securityService, $log) {
+    var originalPath = $location.path();
+    var authToken = $cookies.get('authToken');
+    $log.debug('token',authToken);
+    if(authToken){
+      $rootScope.authToken = authToken;
+      securityService.get(function (user) {
+        $rootScope.user = user;
+        $location.path(originalPath);
+      });
+    }
     var removeErrorMsg = $rootScope.$on('$viewContentLoaded',function () {
       delete $rootScope.error;
     });
@@ -20,23 +30,14 @@
         return false;
       }
       return $rootScope.user.roles[role];
-    }
+    };
     $rootScope.logout = function () {
       delete $rootScope.user;
       delete $rootScope.authToken;
-      $cookies.remove('autthToken');
-      $location.path("/listProduct")
-    }
-    var originalPath = $location.path();
-    $location.path("/listProduct");
-    var authToken = $cookies.get('authToken');
-    if(authToken != undefined){
-      $rootScope.authToken = authToken;
-      UserService.get(function (user) {
-        $rootScope.user = user;
-        $location.path(originalPath);
-      });
-    }
+      $cookies.remove('authToken');
+      $location.path("/")
+    };
+    $location.path("/");
   }
 
   /** @ngInject */

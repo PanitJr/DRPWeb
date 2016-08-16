@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse" xmlns="http://www.w3.org/1999/html">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -14,18 +14,24 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="#">MyPlan</a></li>
+        <li ng-show="user"><a href="#">MyPlan</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">MyAccount</a></li>
-        <li ng-hide="user"> <span ng-include src="'app/security/sign_in.html'"></span></li>
+        <li ng-show="user"><a href="#">MyAccount</a></li>
+        <li ng-hide="user" ><a href="#" ><span ng-include src="'app/user/sign_up.html'"></span></a></li>
+        <li ng-hide="user" ><a href="#"> <span ng-include src="'app/security/sign_in.html'"></span></a></li>
         <li ng-show="user">
-        <form class="form-inline" >
-          <p style="color: whitesmoke">Hello !! {{user.name}}</p>
-          <input type="submit" value="Log out" class="btn btn-default" ng-click="logout()"/>
-      </form></li>
+          <a href="#" ng-click="logout()"><p>Sign-out</p></a>
+      </li>
       </ul>
 
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+<div class="alert alert-success alert-dismissible col-md-offset-4" role="alert" ng-show="signUpSuccess">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span></button>
+  <strong>Success!</strong> Success sign up new account
+</div>
+
+

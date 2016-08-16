@@ -17,7 +17,53 @@ public class User {
     private Long id;
     private String username;
     private String name;
+    private String lastName;
     private String email;
+    private double weigth;
+    private double height;
+    private String gender;
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public double getWeigth() {
+        return weigth;
+    }
+
+    public void setWeigth(double weigth) {
+        this.weigth = weigth;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    private int duration;
     private String password;
     private Date dob;
     @ManyToMany(fetch= FetchType.EAGER)

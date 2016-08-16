@@ -10,17 +10,16 @@ import java.util.List;
  */
 @CrossOrigin
 @RestController
-@RequestMapping("/user")
 public class UserController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "/all",method = RequestMethod.GET)
+    @RequestMapping(value = "/user/all",method = RequestMethod.GET)
     public List<User> list(){
         return userService.findAll();
     }
 
-    @RequestMapping(value = "",method = RequestMethod.POST)
+    @RequestMapping(value = "/user",method = RequestMethod.POST)
     public User create(@RequestBody User user){
         return userService.create(user);
     }

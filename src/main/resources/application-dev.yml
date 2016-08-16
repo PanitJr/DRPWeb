@@ -18,7 +18,7 @@ spring:
        hibernate.cache.use_second_level_cache: true
        hibernate.cache.use_query_cache: false
   datasource:
-   url: jdbc:h2:mem:drpweb;DB_CLOSE_DELAY=-1
+   url: jdbc:h2:mem:drpweb
    name:
    username: sa
    password:

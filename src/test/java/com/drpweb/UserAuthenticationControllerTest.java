@@ -1,7 +1,6 @@
 package com.drpweb;
 
 import com.drpweb.security.SecurityUser;
-import com.drpweb.transfer.UserTransfer;
 import com.drpweb.user.UserAuthenticationController;
 import org.junit.Test;
 import org.springframework.security.authentication.AuthenticationManager;

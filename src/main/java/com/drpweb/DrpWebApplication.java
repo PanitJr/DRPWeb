@@ -26,7 +26,11 @@ public class DrpWebApplication implements CommandLineRunner {
 	@Override
 	public void run(String... strings) throws Exception {
 		Role admin = new Role("admin");
+		Role member = new Role("member");
+		Role patient = new Role("patient");
 		roleRepository.save(admin);
+		roleRepository.save(member);
+		roleRepository.save(patient);
 		Set<Role> roles = new HashSet<>();
 		roles.add(admin);
 		User userAdmin = new User("admin","admin","admin@admin.com","1234",roles);
