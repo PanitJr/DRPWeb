@@ -8,7 +8,7 @@
   /**ngInject*/
   function ModalRegisterController(userService,$uibModal,$log,$location,$rootScope) {
     var vm = this;
-
+    $rootScope.signUpSuccess = false;
     vm.animationsEnabled = true;
     vm.open = function (size) {
 

@@ -79,7 +79,7 @@
             var authToken = authenticationResult.token;
             $rootScope.authToken = authToken;
             if (vm.rememberMe) {
-              $cookies.put('authToken', authToken, {expires: moment().add(5,'days').toString()});
+              $cookies.put('authToken', authToken, {expires:moment().add(5,'days').toString()});
             }
             securityService.get(function (user) {
               $rootScope.user = user;
@@ -87,10 +87,8 @@
             });
             //delete $rootScope.error;
           },
-          function(error){
-
+          function(){
               $rootScope.error =" user name or passoword is not correct";
-
           });
       }, function () {
         $log.info('Modal dismissed at: ' + new Date());

@@ -7,7 +7,7 @@
     .run(runSecurity);
 
   /** @ngInject */
-  function runSecurity($rootScope,$location,$cookies,securityService, $log) {
+  function runSecurity($rootScope,$location,$cookies,securityService) {
     var originalPath = $location.path();
     var authToken = $cookies.get('authToken');
     //$log.debug('token',authToken);
