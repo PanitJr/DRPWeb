@@ -10,7 +10,7 @@
   function runSecurity($rootScope,$location,$cookies,securityService, $log) {
     var originalPath = $location.path();
     var authToken = $cookies.get('authToken');
-    $log.debug('token',authToken);
+    //$log.debug('token',authToken);
     if(authToken){
       $rootScope.authToken = authToken;
       securityService.get(function (user) {
